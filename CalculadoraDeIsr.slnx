@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/tests/">
+    <Project Path="tests/CalculadoraDeIsr.ApplicationTests/CalculadoraDeIsr.ApplicationTests.csproj" />
+  </Folder>
+  <Project Path="src/CalculadoraDeIsr.Application/CalculadoraDeIsr.Application.csproj" />
+</Solution>
