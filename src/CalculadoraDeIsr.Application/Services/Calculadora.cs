@@ -9,11 +9,11 @@ public class Calculadora(IProveedorDeTabuladores proveedorDeTabuladores) : ICalc
         Tabulador? tabulador = proveedorDeTabuladores.ObtenerTabulador(periodicidad, baseGravable);
         if (tabulador is null) return null;
 
-        // Calcular excedente restando la cuota fija a la base gravable
-        decimal excedente = baseGravable - tabulador.CuotaFija;
+        // Calcular excedente restando el límite inferior a la base gravable
+        decimal excedente = baseGravable - tabulador.LimiteInferior;
 
         // Calcular el impuesto marginal multiplicando el excedente por la tasa aplicable
-        decimal impuestoMarginal = excedente * (decimal)tabulador.TasaExcedente;
+        decimal impuestoMarginal = excedente * (decimal) tabulador.TasaExcedente;
 
         // Suma la cuota fija y el impuesto marginal para obtener la retención
         decimal retencion = tabulador.CuotaFija + impuestoMarginal;
