@@ -38,8 +38,11 @@ public class ProveedorDeTabuladores : IProveedorDeTabuladores
             if (overlap)
                 continue;
 
-            tabla.Tabuladores = sortedTabuladores;
-            _tablas[tabla.Periodicidad] = tabla;
+            _tablas[tabla.Periodicidad] = new Tabla
+            {
+                Periodicidad = tabla.Periodicidad,
+                Tabuladores = sortedTabuladores
+            };
         }
     }
 }
