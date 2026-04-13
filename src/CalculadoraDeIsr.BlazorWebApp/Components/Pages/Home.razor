@@ -1,0 +1,112 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@using CalculadoraDeIsr.Application.Models
+@using CalculadoraDeIsr.Application.Services
+@inject ICalculadoraDeIsr Calculadora
+
+<PageTitle>Calculadora de ISR</PageTitle>
+
+<h1>Calculadora de ISR</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row g-2">
+            <div>
+                <label for="ingreso-bruto" class="form-label">Ingreso bruto</label>
+                <input type="number" step="0.01" class="form-control" id="ingreso-bruto"
+                       @bind="IngresoBruto" @bind:event="oninput" />
+            </div>
+            <div>
+                <label for="periodicidad" class="form-label">Periodicidad</label>
+                <select class="form-select" @bind="SelectedPeriodicidad" id="periodicidad">
+                    <option value="@Periodicidad.Diaria">Diaria</option>
+                    <option value="@Periodicidad.Semanal">Semanal</option>
+                    <option value="@Periodicidad.Decenal">Decenal</option>
+                    <option value="@Periodicidad.Quincenal">Quincenal</option>
+                    <option value="@Periodicidad.Mensual">Mensual</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" @onclick="Calcular">Calcular ISR</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        @if (Retencion != null)
+        {
+            <h3 class="d-none">Resultado</h3>
+            <table class="table table-striped table-hover">
+                <caption>Retención</caption>
+                <tbody>
+                    <tr>
+                        <td><strong>Base Gravable</strong></td>
+                        <td class="text-end">@Retencion.BaseGravable.ToString("C")</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Límite Inferior</strong></td>
+                        <td class="text-end">@Retencion.LimiteInferior.ToString("C")</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Excedente</strong></td>
+                        <td class="text-end">@Retencion.Excedente.ToString("C")</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tasa sobre Excedente</strong></td>
+                        <td class="text-end">@Retencion.TasaSobreExcedente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Impuesto Marginal</strong></td>
+                        <td class="text-end">@Retencion.ImpuestoMarginal.ToString("C")</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cuota Fija</strong></td>
+                        <td class="text-end">@Retencion.CuotaFija.ToString("C")</td>
+                    </tr>
+                    <tr class="table-warning">
+                        <td><strong>ISR</strong></td>
+                        <td class="text-end"><strong>@Retencion.ImpuestoSobreLaRenta.ToString("C")</strong></td>
+                    </tr>
+                    <tr class="table-success">
+                        <td><strong>Ingreso Neto</strong></td>
+                        <td class="text-end"><strong>
+                            @((Retencion.BaseGravable - Retencion.ImpuestoSobreLaRenta).ToString("C"))
+                        </strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+        else if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert alert-danger">@ErrorMessage</div>
+        }
+    </div>
+</div>
+
+@code {
+    private decimal IngresoBruto { get; set; }
+    private Periodicidad SelectedPeriodicidad { get; set; } = Periodicidad.Mensual;
+    private Retencion? Retencion { get; set; }
+    private string ErrorMessage { get; set; } = string.Empty;
+
+    private void Calcular()
+    {
+        try
+        {
+            ErrorMessage = string.Empty;
+            Retencion = null;
+
+            Retencion = Calculadora.CalcularIsr(IngresoBruto, SelectedPeriodicidad);
+
+            if (Retencion == null)
+            {
+                ErrorMessage = $"No se encontró un tabulador para la base gravable ${IngresoBruto} con periodicidad {SelectedPeriodicidad}. Verifica que los datos estén cargados correctamente.";
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Error al calcular ISR: {ex.Message}";
+            Retencion = null;
+            System.Diagnostics.Debug.WriteLine($"Exception: {ex}");
+        }
+    }
+}

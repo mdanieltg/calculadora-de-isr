@@ -3,4 +3,5 @@
     <Project Path="tests/CalculadoraDeIsr.ApplicationTests/CalculadoraDeIsr.ApplicationTests.csproj" />
   </Folder>
   <Project Path="src/CalculadoraDeIsr.Application/CalculadoraDeIsr.Application.csproj" />
+  <Project Path="src/CalculadoraDeIsr.BlazorWebApp/CalculadoraDeIsr.BlazorWebApp.csproj" />
 </Solution>
