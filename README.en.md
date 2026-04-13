@@ -62,7 +62,7 @@ Contributions are welcome. Please follow these steps:
 
 ## License
 
-This project is under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is under the GNU GPLv3 License. See the [LICENSE](LICENSE) file for more details.
 
 ## Contact
 
