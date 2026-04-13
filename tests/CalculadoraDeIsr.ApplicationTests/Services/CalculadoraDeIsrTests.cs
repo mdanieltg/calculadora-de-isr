@@ -40,9 +40,9 @@ public class CalculadoraDeIsrTests
         Assert.That(retencion.LimiteInferior, Is.EqualTo(1_000));
         Assert.That(retencion.TasaSobreExcedente, Is.EqualTo("20.00%"));
         Assert.That(retencion.CuotaFija, Is.EqualTo(500));
-        Assert.That(retencion.Excedente, Is.EqualTo(700));
-        Assert.That(retencion.ImpuestoMarginal, Is.EqualTo(140));
-        Assert.That(retencion.ImpuestoSobreLaRenta, Is.EqualTo(640));
+        Assert.That(retencion.Excedente, Is.EqualTo(200));
+        Assert.That(retencion.ImpuestoMarginal, Is.EqualTo(40));
+        Assert.That(retencion.ImpuestoSobreLaRenta, Is.EqualTo(540));
     }
 
     [Test]
@@ -68,9 +68,9 @@ public class CalculadoraDeIsrTests
         Assert.That(retencion.LimiteInferior, Is.EqualTo(1_000));
         Assert.That(retencion.TasaSobreExcedente, Is.EqualTo("20.00%"));
         Assert.That(retencion.CuotaFija, Is.EqualTo(500));
-        Assert.That(retencion.Excedente, Is.EqualTo(700));
-        Assert.That(retencion.ImpuestoMarginal, Is.EqualTo(140));
-        Assert.That(retencion.ImpuestoSobreLaRenta, Is.EqualTo(640));
+        Assert.That(retencion.Excedente, Is.EqualTo(200));
+        Assert.That(retencion.ImpuestoMarginal, Is.EqualTo(40));
+        Assert.That(retencion.ImpuestoSobreLaRenta, Is.EqualTo(540));
     }
 
     [Test]
